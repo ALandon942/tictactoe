@@ -6,13 +6,36 @@
 #     Repeat c and d until the game has been won or tied.
 #     Ask if players want to play again.
 
-
+# Board is 3x3 array of numbers which could be 0 (blank), +1 (X) or -1 (O)
 def initialize_board():
-    pass
+    return [[0, 0, 0],
+            [0, 0, 0],
+            [0, 0, 0]]
 
 
 def print_board(board):
-    pass
+    def get_marker(square):
+        if square == 0:
+            return ' '
+        elif square < 0:
+            return 'X'
+        else:
+            return 'O'
+    board_string = '''
+     ||     ||
+  {}  ||  {}  ||  {}
+     ||     ||
+===================
+     ||     ||
+  {}  ||  {}  ||  {}
+     ||     ||
+===================
+     ||     ||
+  {}  ||  {}  ||  {}
+     ||     ||
+    '''
+    board_args = [get_marker(square) for row in board for square in row]
+    print(board_string.format(*board_args))
 
 
 def prompt_for_move():
