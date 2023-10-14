@@ -56,13 +56,18 @@ def switch_marker(marker):
     return -marker
 
 
-def prompt_for_move(marker):
+def prompt_for_move(board, marker):
     while True:
         entry = input(f'{"X" if marker < 0 else "O"}, enter a number 1 (upper left) through 9 (lower right) ')
         if entry.isdigit():
             move_num = int(entry)
             if 1 <= move_num <= 9:
-                return move_num
+                # Check that space isn't already occupied
+                coordinates = get_board_coordinates(move_num)
+                if board[coordinates[0]][coordinates[1]] == 0:
+                    return move_num
+                else:
+                    print(f'{move_num} is occupied')
         print('Not a valid move')
 
 
@@ -135,7 +140,7 @@ def main_loop():
         marker = prompt_for_starting_marker()
         while not game_over:
             print_board(board)
-            move = prompt_for_move(marker)
+            move = prompt_for_move(board, marker)
             clear_screen()
             board = apply_move(board, move, marker)
             marker = switch_marker(marker)
