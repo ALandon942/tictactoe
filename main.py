@@ -123,6 +123,10 @@ def prompt_for_another_game():
             print('Not a valid entry')
 
 
+def clear_screen():
+    print("\n" * 100)
+
+
 def main_loop():
     playing = True
     while playing:
@@ -132,6 +136,7 @@ def main_loop():
         while not game_over:
             print_board(board)
             move = prompt_for_move()
+            clear_screen()
             board = apply_move(board, move, marker)
             marker = switch_marker(marker)
             game_over = check_game_status(board)
@@ -139,4 +144,3 @@ def main_loop():
 
 
 main_loop()
-
