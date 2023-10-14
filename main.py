@@ -77,7 +77,14 @@ def check_game_status():
 
 
 def prompt_for_another_game():
-    pass
+    while True:
+        entry = input("Play again? Y/N ")
+        if entry.upper() == 'Y':
+            return True
+        elif entry.upper() == 'N':
+            return False
+        else:
+            print('Not a valid entry')
 
 
 def main_loop():
@@ -96,3 +103,4 @@ def main_loop():
 
 
 main_loop()
+
