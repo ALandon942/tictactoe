@@ -56,9 +56,9 @@ def switch_marker(marker):
     return -marker
 
 
-def prompt_for_move():
+def prompt_for_move(marker):
     while True:
-        entry = input('Enter a number 1 (upper left) through 9 (lower right) ')
+        entry = input(f'{"X" if marker < 0 else "O"}, enter a number 1 (upper left) through 9 (lower right) ')
         if entry.isdigit():
             move_num = int(entry)
             if 1 <= move_num <= 9:
@@ -135,7 +135,7 @@ def main_loop():
         marker = prompt_for_starting_marker()
         while not game_over:
             print_board(board)
-            move = prompt_for_move()
+            move = prompt_for_move(marker)
             clear_screen()
             board = apply_move(board, move, marker)
             marker = switch_marker(marker)
