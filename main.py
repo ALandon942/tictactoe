@@ -147,14 +147,16 @@ def main_loop():
     while playing:
         game_over = False
         board = initialize_board()
+        clear_screen()
         marker = prompt_for_starting_marker()
         while not game_over:
             print_board(board)
             move = prompt_for_move(board, marker)
-            clear_screen()
             board = apply_move(board, move, marker)
             marker = switch_marker(marker)
             game_over = check_game_status(board)
+            if not game_over:
+                clear_screen()
         playing = prompt_for_another_game()
 
 
