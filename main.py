@@ -66,14 +66,50 @@ def prompt_for_move():
         print('Not a valid move')
 
 
+def get_board_coordinates(square):
+    square -= 1
+    return (square // 3, square % 3)
+
+
 def apply_move(board, move, marker):
-    move -= 1
-    board[move // 3][move % 3] = marker
+    coordinates = get_board_coordinates(move)
+    board[coordinates[0]][coordinates[1]] = marker
     return board
 
 
-def check_game_status():
-    pass
+def check_game_status(board):
+    lines = (
+        # Horizontals
+        (1, 2, 3),
+        (4, 5, 6),
+        (7, 8, 9),
+        # Verticals
+        (1, 4, 7),
+        (2, 5, 8),
+        (3, 6, 9),
+        # Diagonals
+        (1, 5, 9),
+        (7, 5, 3)
+    )
+
+    def check_line(line):
+        total = 0
+        for square in line:
+            coordinates = get_board_coordinates(square)
+            total += board[coordinates[0]][coordinates[1]]
+        if total == 3:
+            return 1
+        elif total == -3:
+            return -1
+        else:
+            return 0
+
+    for line in lines:
+        winner = check_line(line)
+        if winner != 0:
+            print(f'{"X" if winner < 0 else "O"} wins!')
+            return True
+    return False
 
 
 def prompt_for_another_game():
@@ -98,7 +134,7 @@ def main_loop():
             move = prompt_for_move()
             board = apply_move(board, move, marker)
             marker = switch_marker(marker)
-            game_over = check_game_status()
+            game_over = check_game_status(board)
         playing = prompt_for_another_game()
 
 
