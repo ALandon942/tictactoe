@@ -21,6 +21,7 @@ def print_board(board):
             return 'X'
         else:
             return 'O'
+
     board_string = '''
      ||     ||
   {}  ||  {}  ||  {}
@@ -39,7 +40,13 @@ def print_board(board):
 
 
 def prompt_for_move():
-    pass
+    while True:
+        entry = input('Enter a number 1 (upper left) through 9 (lower right) ')
+        if entry.isdigit():
+            move_num = int(entry)
+            if 1 <= move_num <= 9:
+                return move_num
+        print('Not a valid move')
 
 
 def apply_move(move):
