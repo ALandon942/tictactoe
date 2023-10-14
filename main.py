@@ -109,11 +109,21 @@ def check_game_status(board):
         else:
             return 0
 
+    def check_draw(board):
+        for row in board:
+            for square in row:
+                if square == 0:
+                    return False
+        return True
+
     for line in lines:
         winner = check_line(line)
         if winner != 0:
             print(f'{"X" if winner < 0 else "O"} wins!')
             return True
+    if check_draw(board):
+        print("It's a draw!")
+        return True
     return False
 
 
