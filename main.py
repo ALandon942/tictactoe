@@ -44,7 +44,7 @@ def prompt_for_starting_marker():
         entry = input('Player 1, would you like to be X or O? ')
         if entry.upper() == 'X':
             print("Player 2 will be O")
-            return -1  # TODO: number -> marker dict
+            return -1
         elif entry.upper() == 'O':
             print("Player 2 will be X")
             return 1
@@ -66,8 +66,10 @@ def prompt_for_move():
         print('Not a valid move')
 
 
-def apply_move(move, marker):
-    pass
+def apply_move(board, move, marker):
+    move -= 1
+    board[move // 3][move % 3] = marker
+    return board
 
 
 def check_game_status():
@@ -78,15 +80,19 @@ def prompt_for_another_game():
     pass
 
 
-playing = True
-while playing:
-    game_over = False
-    board = initialize_board()
-    marker = prompt_for_starting_marker()
-    while not game_over:
-        print_board(board)
-        move = prompt_for_move()
-        board = apply_move(move, marker)
-        marker = switch_marker(marker)
-        game_over = check_game_status()
-    playing = prompt_for_another_game()
+def main_loop():
+    playing = True
+    while playing:
+        game_over = False
+        board = initialize_board()
+        marker = prompt_for_starting_marker()
+        while not game_over:
+            print_board(board)
+            move = prompt_for_move()
+            board = apply_move(board, move, marker)
+            marker = switch_marker(marker)
+            game_over = check_game_status()
+        playing = prompt_for_another_game()
+
+
+main_loop()
